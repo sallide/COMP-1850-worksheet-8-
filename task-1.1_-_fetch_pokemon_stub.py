@@ -11,16 +11,22 @@ import json
 def fetch_pokemon(name):
     """Fetch Pokémon data from the PokéAPI and display raw JSON."""
     # TODO: Construct the URL using the Pokémon name (hint: f"https://pokeapi.co/api/v2/pokemon/{name.lower()}")
-
+    url = f"https://pokeapi.co/api/v2/pokemon/{name.lower()}"
     # TODO: Make a GET request to the URL with httpx
-
+    data = httpx.get(url)
     # TODO: Check if the response is successful (status_code == 200)
+    if data.status_code == 200:
         # TODO: Parse the JSON response and pretty-print it with json.dumps(..., indent=4)
+        #parsed = json.loads(data)
+        parsed = data.json()
+        print(json.dumps(parsed, indent=4))
+        
     # else:
+    else:
         # TODO: Print an error message if the Pokémon is not found
-
+        print("Pokemon Not Found")
 # Example usage
-# fetch_pokemon("squirtle")
+fetch_pokemon("squirtle")
 
 """
 Hints:
