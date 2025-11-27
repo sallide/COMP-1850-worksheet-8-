@@ -27,10 +27,45 @@ def fetch_pokemon_custom(name, display_raw=False):
     
     # TODO: Print an error message if the Pokémon is not found
 
+    url = f"https://pokeapi.co/api/v2/pokemon/{name.lower()}"
+
+    data = httpx.get(url)
+
+    if data.status_code == 200:
+        data = data.json()
+        types = []
+       
+        name = data['name']
+        
+        for type_info in data["types"]:
+            type_name = type_info["type"]["name"]
+            types.append(type_name)
+
+        stats = {}
+
+        for stat_info in data["stats"]:
+            stats_name = stat_info['stat']["name"]
+            base_stat = stat_info["base_stat"]
+            stats[stats_name] = base_stat
+
+        image_url = data["sprites"]["front_default"]
+
+        if display_raw == True:
+            print(json.dumps(data, indent=4))
+        else:
+            print(f"Name: {name}")
+            print(f"Types: {', '.join(types)}")
+            print("Base Stats:")
+            for stat, value in stats.items():
+                print(f"  {stat.capitalize()}: {value}")
+            print(f"Image URL: {image_url}")
+    else:
+        print(f"Error: Pokémon '{name}' not found!")
+
 
 # Example usage
-# fetch_pokemon_custom("squirtle")  # Display summary by default
-# fetch_pokemon_custom("squirtle", display_raw=True)  # Display raw JSON
+#fetch_pokemon_custom("squirtle")  # Display summary by default
+fetch_pokemon_custom("squirtle", display_raw=True)  # Display raw JSON
 
 """
 Hints:
