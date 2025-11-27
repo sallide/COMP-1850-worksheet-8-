@@ -13,23 +13,75 @@ class Team:
     
     def add_pokemon(self, name):
         """Add a Pokémon to the team."""
-        # (Implementation from Exercise 2.1)
-        pass  # Remove this when implementing
+        # TODO: Check if the team already has 6 Pokémon
+        if len(self.members) == 6:
+            # TODO: If yes, print a message indicating the team is full
+            print("Team is full")
+            return
+        # TODO: Check if the Pokémon is already in the team (case-insensitive)
+            # TODO: If yes, print a message indicating duplication
+        for i in self.members:
+            if i["name"].lower() == name.lower():
+                print("Pokemon is in team already")
+                return
+            
+        # TODO: Fetch Pokémon data from the PokéAPI (hint: httpx.get + status code check)
+        url = f"https://pokeapi.co/api/v2/pokemon/{name.lower()}"
+
+        data = httpx.get(url)
+
+        # TODO: If successful, extract the fields you want to store (name, types, sprite URL)
+        if data.status_code == 200:
+            data = data.json()
+            types = []
+        
+            name = data['name']
+            
+            for type_info in data["types"]:
+                type_name = type_info["type"]["name"]
+                types.append(type_name)
+
+            stats = {}
+
+            for stat_info in data["stats"]:
+                stats_name = stat_info['stat']["name"]
+                base_stat = stat_info["base_stat"]
+                stats[stats_name] = base_stat
+
+            image_url = data["sprites"]["front_default"]
+
+            pokemon = {
+                "name": name,
+                "types": types,
+                "stats": stats,
+                "image": image_url
+
+            }
+
+            # TODO: Append the dictionary/object to self.members
+            self.members.append(pokemon)
+            # TODO: Print a confirmation message
+            print(f"{name} added to team")
+        else:
+            # TODO: Print an error message if the Pokémon is not found
+            print(f"Error: Pokémon '{name}' not found!")
     
     def view_team(self):
         """View the current team with details."""
         # TODO: Check if the team is empty
             # TODO: If empty, print a message indicating the team is empty
-        pass  # Remove this when implementing
+
+        if len(self.members) == 0:
+            print("No pokemon in the team")
+            return
         
         # TODO: Print the team members with their details (numbering them with enumerate for readability)
         print("Your Team:")
         for idx, pokemon in enumerate(self.members, 1):
-            # TODO: Extract and format the Pokémon's details
-            pass
+            print(pokemon[idx])
     
 # Example usage
-# team = Team()
-# team.add_pokemon("squirtle")
-# team.add_pokemon("charmander")
-# team.view_team()
+team = Team()
+team.add_pokemon("squirtle")
+team.add_pokemon("charmander")
+team.view_team()

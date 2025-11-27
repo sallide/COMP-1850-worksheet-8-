@@ -64,8 +64,8 @@ def fetch_pokemon_custom(name, display_raw=False):
 
 
 # Example usage
-#fetch_pokemon_custom("squirtle")  # Display summary by default
-fetch_pokemon_custom("squirtle", display_raw=True)  # Display raw JSON
+fetch_pokemon_custom("squirtle")  # Display summary by default
+#fetch_pokemon_custom("squirtle", display_raw=True)  # Display raw JSON
 
 """
 Hints:
