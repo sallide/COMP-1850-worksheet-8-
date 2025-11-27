@@ -3,6 +3,8 @@ Exercise 3.3: Add Random Events to Battle (Stretch Goal - Stub)
 
 This builds on your Task 3.2 Pokemon class.
 Add randomness to make battles more unpredictable!
+Name: Saloni Pradhan
+Student ID: 201829493
 """
 
 import httpx
