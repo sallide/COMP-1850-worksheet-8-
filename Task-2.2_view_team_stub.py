@@ -78,7 +78,10 @@ class Team:
         # TODO: Print the team members with their details (numbering them with enumerate for readability)
         print("Your Team:")
         for idx, pokemon in enumerate(self.members, 1):
-            print(pokemon[idx])
+            print(f"{idx}. {pokemon["name"]}")
+            print(f"   Types: {', '.join(pokemon["types"])}")
+            print(f"   Stats: {pokemon["stats"]}")
+            print(f"   Image URL: {pokemon["image"]}")
     
 # Example usage
 team = Team()
