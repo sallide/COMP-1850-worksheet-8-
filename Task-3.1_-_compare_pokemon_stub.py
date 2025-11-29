@@ -50,7 +50,8 @@ def compare_pokemon(pokemon1, pokemon2):
                 stats_name2 = stat_info['stat']["name"]
                 base_stat2 = stat_info["base_stat"]
                 stats2[stats_name2] = base_stat2
-
+    else:
+        print("Response code error")
         
     #print(stats1, stats2)
     
